@@ -1,0 +1,41 @@
+# Build context exclusions for the production Docker image.
+
+# Version control
+.git
+.gitignore
+
+# Local Python environment / tooling
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Secrets (never shipped into the image; .env.example is the reference copy)
+.env
+.env.*
+!.env.example
+
+# Runtime artifacts (persisted via volumes instead)
+data/
+logs/
+*.sqlite
+*.db
+
+# Source not required in the production image
+tests/
+benchmarks/
+docs/
+scripts/
+
+# CI
+.github/
+
+# Container files themselves
+Dockerfile
+docker-compose.yml
+.dockerignore

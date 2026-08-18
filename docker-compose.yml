@@ -1,0 +1,35 @@
+# Module 17 — Docker Compose for the collision-risk backend.
+# Usage:
+#   docker compose up --build -d
+#   curl http://localhost:8000/health
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: collision-risk-backend:latest
+    container_name: collision-risk-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      # Production runtime configuration (secrets belong in your secret store,
+      # not in this file; none are currently required by the app).
+      ENVIRONMENT: production
+      LOG_LEVEL: INFO
+      APP_HOST: 0.0.0.0
+      APP_PORT: 8000
+      MAX_WORKERS: 1
+    volumes:
+      # Persist the SQLite database across restarts.
+      - ./data:/app/data
+      # Provide trained models without rebuilding (empty by default; the app
+      # degrades to HTTP 503 on risk endpoints until models are present).
+      - ./models:/app/models
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request, sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).status == 200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 40s
+      retries: 3

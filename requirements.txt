@@ -1,0 +1,37 @@
+# Core Framework
+fastapi==0.141.1
+uvicorn[standard]==0.52.3
+
+# HTTP Client
+httpx==0.28.1
+
+# Orbital Mechanics
+poliastro==0.7.0
+
+# Data Processing
+numpy==2.5.2
+pandas==3.0.5
+scipy==1.18.0
+
+# Machine Learning
+scikit-learn==1.9.0
+xgboost==3.4.1
+joblib==1.5.3
+
+# Data Validation & Settings
+pydantic==2.13.4
+pydantic-settings==2.15.0
+python-dotenv==1.2.3
+
+# Database
+sqlalchemy==2.0.36
+alembic==1.14.1
+
+# Testing
+pytest==9.1.1
+pytest-asyncio==1.4.0
+pytest-cov==6.0.0
+
+# Utilities
+pyyaml==6.0.3
+requests==2.34.2
